@@ -58,6 +58,8 @@ class PDFCombineExtension(Nautilus.MenuProvider, GObject.GObject):
 
         for path in sorted(file_paths):
             mime, _ = mimetypes.guess_type(path)
+            if not mime:
+                continue
             if mime == 'application/pdf':
                 pdf_files += [path]
             elif mime.startswith('image/'):
