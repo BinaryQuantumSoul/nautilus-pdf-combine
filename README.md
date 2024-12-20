@@ -13,8 +13,7 @@ The resulting `combined.pdf` file is made concatenating the files in alphabetica
   ```shell
   mkdir ~/.local/share/nautilus-python
   mkdir ~/.local/share/nautilus-python/extensions
-  git clone https://github.com/BinaryQuantumSoul/nautilus-pdf-combine
-  cp nautilus-pdf-combine/nautilus-pdf-combine.py ~/.local/share/nautilus-python/extensions/
-  rm -rf nautilus-pdf-combine
+  cd ~/.local/share/nautilus-python/extensions
+  wget https://raw.githubusercontent.com/BinaryQuantumSoul/nautilus-pdf-combine/refs/heads/main/nautilus-pdf-combine.py
   nautilus -q
   ```
