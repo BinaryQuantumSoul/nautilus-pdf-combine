@@ -11,6 +11,7 @@ import shutil
 from PIL import Image
 import mimetypes
 import datetime
+import pathlib
 
 class PDFCombineExtension(Nautilus.MenuProvider, GObject.GObject):
     def __init__(self):
@@ -89,7 +90,8 @@ class PDFCombineExtension(Nautilus.MenuProvider, GObject.GObject):
             if not pdf_files:
                 return
             
-            output_file = os.path.join(os.path.dirname(files[0].get_location().get_path()), 'combined.pdf')
+            first_file = pathlib.Path(files[0].get_location().get_path())
+            output_file = first_file.with_suffix('.combined.pdf')
             process = subprocess.Popen(['pdftk'] + pdf_files + ['cat', 'output', output_file], shell=False)
 
             if self.temp_dir:
