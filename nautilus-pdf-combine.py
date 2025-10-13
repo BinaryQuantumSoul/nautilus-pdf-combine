@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from gi import require_version
-require_version('Gtk', '3.0')
-require_version('Nautilus', '3.0')
+require_version('Gtk', '4.0')
+require_version('Nautilus', '4.1')
 
 from gi.repository import Nautilus, GObject
 import os
@@ -21,7 +21,7 @@ class PDFCombineExtension(Nautilus.MenuProvider, GObject.GObject):
 
         self.temp_dir = None
 
-    def get_file_items(self, window, files):
+    def get_file_items(self, files):
         item = Nautilus.MenuItem(
             name="CombinePDFs",
             label="Combine PDFs",
@@ -30,7 +30,7 @@ class PDFCombineExtension(Nautilus.MenuProvider, GObject.GObject):
         item.connect('activate', self.combine_pdfs, files)
         return [item]
 
-    def get_background_items(self, window, file_):
+    def get_background_items(self, file_):
         item = Nautilus.MenuItem(
             name="CombinePDFsBackground",
             label="Combine PDFs",
@@ -82,7 +82,7 @@ class PDFCombineExtension(Nautilus.MenuProvider, GObject.GObject):
 
         return pdf_file_list
 
-    def combine_pdfs(self, menu: Nautilus.MenuItem, files):
+    def combine_pdfs(self, _menu: Nautilus.MenuItem, files):
         try:
             pdf_files, image_files = self.find_files(files)
             pdf_files += self.convert_images_to_pdf(image_files)
@@ -98,6 +98,9 @@ class PDFCombineExtension(Nautilus.MenuProvider, GObject.GObject):
                 self.temp_dir = None
             
         except Exception as message:
-            timestamp = datetime.datetime.now().isoformat()
-            with open(self.log_path, 'a') as log:
-                log.write(f'{timestamp}: {message}\n')
+            self.write_log(message)
+
+    def write_log(self, message):
+        timestamp = datetime.datetime.now().isoformat()
+        with open(self.log_path, 'a') as log:
+            log.write(f'{timestamp}: {message}\n')

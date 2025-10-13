@@ -1,10 +1,11 @@
 # nautilus-pdf-combine
-Combine any pdfs and images using right click in Gnome Nautilus
+Combine any pdfs and images using right click in Gnome Nautilus 4.1
 
 ## Usage
 Select any files or folders, right click > "Combine PDFs".
 This will take all pdfs and images selected as well as those inside the subfolders.
-The resulting `combined.pdf` file is made concatenating the files in alphabetical path order.
+The resulting file is made concatenating the files in alphabetical path order.
+The name of the file is the same as the first file with the extension replaced by '.combined.pdf'
 
 ## Installation
 1. Install [nautilus-python](https://github.com/GNOME/nautilus-python) using package manager
